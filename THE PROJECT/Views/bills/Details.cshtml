@@ -1,0 +1,74 @@
+﻿@model THE_PROJECT.Models.bill
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>bill</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.discount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total_af_dis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total_af_dis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customer.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customer.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user.user_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user.user_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

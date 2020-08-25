@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2d29506d19d34e0aba9b33665ed28aec" Name="Diagram1">
+        <EntityTypeShape EntityType="db_newproModel.bill" Width="1.5" PointX="3.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_newproModel.billsDetail" Width="1.5" PointX="6" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_newproModel.category" Width="1.5" PointX="4.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_newproModel.customer" Width="1.5" PointX="1.5" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_newproModel.product" Width="1.5" PointX="6.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_newproModel.supplier" Width="1.5" PointX="8.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_newproModel.sysdiagram" Width="1.5" PointX="8.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_newproModel.user" Width="1.5" PointX="0.5" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="db_newproModel.FK_bills_customers" ManuallyRouted="false" />
+        <AssociationConnector Association="db_newproModel.FK_bills_users" ManuallyRouted="false" />
+        <AssociationConnector Association="db_newproModel.FK_billsDetails_bills" ManuallyRouted="false" />
+        <AssociationConnector Association="db_newproModel.FK_billsDetails_products" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

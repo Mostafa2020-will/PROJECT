@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db_newproModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bills">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="notes" Type="nvarchar(max)" />
+          <Property Name="customers id" Type="int" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="discount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="total af dis" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="users id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="billsDetails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="products id" Type="int" Nullable="false" />
+          <Property Name="bills id" Type="int" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="total price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="30" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="notes" Type="nvarchar(max)" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="company name" Type="nvarchar" MaxLength="50" />
+          <Property Name="mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="is active" Type="bit" Nullable="false" />
+          <Property Name="image" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="code" Type="nvarchar" MaxLength="50" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="notes" Type="nvarchar(max)" />
+          <Property Name="image" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="suppliers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="30" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="notes" Type="nvarchar(max)" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="company name" Type="nvarchar" MaxLength="50" />
+          <Property Name="mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="is active" Type="bit" Nullable="false" />
+          <Property Name="image" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user name" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="image" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_bills_customers">
+          <End Role="customers" Type="Self.customers" Multiplicity="1" />
+          <End Role="bills" Type="Self.bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bills">
+              <PropertyRef Name="customers id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bills_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="bills" Type="Self.bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bills">
+              <PropertyRef Name="users id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_billsDetails_bills">
+          <End Role="bills" Type="Self.bills" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="billsDetails" Type="Self.billsDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bills">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="billsDetails">
+              <PropertyRef Name="bills id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_billsDetails_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="billsDetails" Type="Self.billsDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="billsDetails">
+              <PropertyRef Name="products id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_newproModelStoreContainer">
+          <EntitySet Name="bills" EntityType="Self.bills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="billsDetails" EntityType="Self.billsDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_bills_customers" Association="Self.FK_bills_customers">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="bills" EntitySet="bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bills_users" Association="Self.FK_bills_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="bills" EntitySet="bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_billsDetails_bills" Association="Self.FK_billsDetails_bills">
+            <End Role="bills" EntitySet="bills" />
+            <End Role="billsDetails" EntitySet="billsDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_billsDetails_products" Association="Self.FK_billsDetails_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="billsDetails" EntitySet="billsDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_newproModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="customers_id" Type="Int32" Nullable="false" />
+          <Property Name="total" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="discount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="total_af_dis" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="users_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="customer" Relationship="Self.FK_bills_customers" FromRole="bills" ToRole="customers" />
+          <NavigationProperty Name="user" Relationship="Self.FK_bills_users" FromRole="bills" ToRole="users" />
+          <NavigationProperty Name="billsDetails" Relationship="Self.FK_billsDetails_bills" FromRole="bills" ToRole="billsDetails" />
+        </EntityType>
+        <EntityType Name="billsDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="products_id" Type="Int32" Nullable="false" />
+          <Property Name="bills_id" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="total_price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="bill" Relationship="Self.FK_billsDetails_bills" FromRole="billsDetails" ToRole="bills" />
+          <NavigationProperty Name="product" Relationship="Self.FK_billsDetails_products" FromRole="billsDetails" ToRole="products" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="bills" Relationship="Self.FK_bills_customers" FromRole="customers" ToRole="bills" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="billsDetails" Relationship="Self.FK_billsDetails_products" FromRole="products" ToRole="billsDetails" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="bills" Relationship="Self.FK_bills_users" FromRole="users" ToRole="bills" />
+        </EntityType>
+        <Association Name="FK_bills_customers">
+          <End Role="customers" Type="Self.customer" Multiplicity="1" />
+          <End Role="bills" Type="Self.bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bills">
+              <PropertyRef Name="customers_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bills_users">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="bills" Type="Self.bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bills">
+              <PropertyRef Name="users_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_billsDetails_bills">
+          <End Role="bills" Type="Self.bill" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="billsDetails" Type="Self.billsDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bills">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="billsDetails">
+              <PropertyRef Name="bills_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_billsDetails_products">
+          <End Role="products" Type="Self.product" Multiplicity="1" />
+          <End Role="billsDetails" Type="Self.billsDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="billsDetails">
+              <PropertyRef Name="products_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_newproEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bills" EntityType="Self.bill" />
+          <EntitySet Name="billsDetails" EntityType="Self.billsDetail" />
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="suppliers" EntityType="Self.supplier" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_bills_customers" Association="Self.FK_bills_customers">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="bills" EntitySet="bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bills_users" Association="Self.FK_bills_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="bills" EntitySet="bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_billsDetails_bills" Association="Self.FK_billsDetails_bills">
+            <End Role="bills" EntitySet="bills" />
+            <End Role="billsDetails" EntitySet="billsDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_billsDetails_products" Association="Self.FK_billsDetails_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="billsDetails" EntitySet="billsDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_newproModelStoreContainer" CdmEntityContainer="db_newproEntities">
+          <EntitySetMapping Name="bills">
+            <EntityTypeMapping TypeName="db_newproModel.bill">
+              <MappingFragment StoreEntitySet="bills">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="customers_id" ColumnName="customers id" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="total_af_dis" ColumnName="total af dis" />
+                <ScalarProperty Name="users_id" ColumnName="users id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="billsDetails">
+            <EntityTypeMapping TypeName="db_newproModel.billsDetail">
+              <MappingFragment StoreEntitySet="billsDetails">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="products_id" ColumnName="products id" />
+                <ScalarProperty Name="bills_id" ColumnName="bills id" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="total_price" ColumnName="total price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="db_newproModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="db_newproModel.customer">
+              <MappingFragment StoreEntitySet="customers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="company_name" ColumnName="company name" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="is_active" ColumnName="is active" />
+                <ScalarProperty Name="image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="db_newproModel.product">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="db_newproModel.supplier">
+              <MappingFragment StoreEntitySet="suppliers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="company_name" ColumnName="company name" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="is_active" ColumnName="is active" />
+                <ScalarProperty Name="image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="db_newproModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="db_newproModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_name" ColumnName="user name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
